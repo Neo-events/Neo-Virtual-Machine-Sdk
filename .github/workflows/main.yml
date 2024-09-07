@@ -1,0 +1,25 @@
+name: Test Application
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+env:
+  DOTNET_VERSION: 8.0.x
+
+jobs:
+
+  code-format:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Check Format (*.cs)
+      run: dotnet format --verify-no-changes --verbosity diagnostic
