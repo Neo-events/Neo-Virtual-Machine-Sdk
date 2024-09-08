@@ -9,7 +9,6 @@ env:
   DOTNET_VERSION: 8.0.x
 
 jobs:
-
   code-format:
     runs-on: ubuntu-latest
     steps:
@@ -23,3 +22,25 @@ jobs:
 
     - name: Check Format (*.cs)
       run: dotnet format --verify-no-changes --verbosity diagnostic
+
+  test-code:
+    needs: [code-format]
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Test
+      run: dotnet test --configuration Release --no-build

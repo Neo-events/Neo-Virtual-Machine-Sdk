@@ -1,12 +1,13 @@
 // Licensed to the "Neo Events" under one or more agreements.
 // The "Neo Events" licenses this file to you under the GPL-3.0 license.
 
+using NeoEvents.VirtualMachine.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 
-namespace NeoEvents.VirtualMachine;
+namespace NeoEvents.VirtualMachine.Builders;
 
 public class ScriptBuilder : IDisposable
 {
@@ -52,7 +53,7 @@ public class ScriptBuilder : IDisposable
         return Emit(OpCode.CALL, [(byte)offset]);
     }
 
-    public ScriptBuilder EmitSysCall(uint api) =>
+    public ScriptBuilder SysCall(uint api) =>
         Emit(OpCode.SYSCALL, BitConverter.GetBytes(api));
 
     public ScriptBuilder Push(bool value) =>
@@ -72,7 +73,7 @@ public class ScriptBuilder : IDisposable
 
     public ScriptBuilder Push(string value)
     {
-        StrictUTF8 strictUTF8 = new();
+        StrictUTF8Encoding strictUTF8 = new();
         return Push(strictUTF8.GetBytes(value));
     }
 
@@ -83,7 +84,7 @@ public class ScriptBuilder : IDisposable
 
         Span<byte> buffer = stackalloc byte[32];
 
-        if (value.TryWriteBytes(buffer, out var bytesWritten, isUnsigned: false, isBigEndian: false) == false)
+        if (value.TryWriteBytes(buffer, out var bytesWritten) == false)
             throw new ArgumentOutOfRangeException(nameof(value));
 
         return bytesWritten switch
