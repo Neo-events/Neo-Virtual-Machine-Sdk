@@ -93,10 +93,18 @@ public class UT_ScriptBuilder
             sb.Length);
 
         Assert.Equal([
-            0x0c, 0x00, 0x00, // PUSHDATA1
-            0x0c, 0x01, 0x01, // PUSHDATA1
-            0x0d, .. BitConverter.GetBytes((ushort)expectedBytes3.Length), .. expectedBytes3, // PUSHDATA2
-            0x0e, .. BitConverter.GetBytes(expectedBytes4.Length), .. expectedBytes4], // PUSHDATA4
+            0x0c, // PUSHDATA1
+            0x00,
+            0x00, // []
+            0x0c, // PUSHDATA1
+            0x01,
+            0x01, // [0x01]
+            0x0d,
+            .. BitConverter.GetBytes((ushort)expectedBytes3.Length),
+            .. expectedBytes3, // PUSHDATA2
+            0x0e,
+            .. BitConverter.GetBytes(expectedBytes4.Length),
+            .. expectedBytes4], // PUSHDATA4
             sb.Build());
     }
 
