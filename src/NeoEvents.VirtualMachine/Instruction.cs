@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 namespace NeoEvents.VirtualMachine;
 
-[DebuggerDisplay("OpCode={OpCode}, Size={Size}")]
+[DebuggerDisplay("OpCode={OpCode}, Position={Position}, Size={Size}")]
 public class Instruction : IEnumerable<Instruction>
 {
     private const int OpCodeSize = 1;
