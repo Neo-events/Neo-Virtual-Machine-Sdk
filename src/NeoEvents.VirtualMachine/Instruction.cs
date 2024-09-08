@@ -24,13 +24,14 @@ public class Instruction : IEnumerable<Instruction>
     private readonly int _operandSize;
 
     public OpCode OpCode { get; }
-    public uint Operand { get; }
+    public Operand Operand { get; }
     public int Position { get; }
     public int Size { get; }
-    public byte[] Data { get; }
 
 
-    public Instruction(ReadOnlySpan<byte> script, int start = 0)
+    public Instruction(
+        ReadOnlySpan<byte> script,
+        int start = 0)
     {
         if (script.IsEmpty)
             throw new ArgumentException("Script is empty.", nameof(script));
@@ -55,19 +56,19 @@ public class Instruction : IEnumerable<Instruction>
         if (start + operandSize + OpCodeSize > script.Length)
             throw new IndexOutOfRangeException("Operand size exceeds end of script.");
 
-        var data = script.Slice(start + OpCodeSize, operandSize);
+        var operand = script.Slice(start + OpCodeSize, operandSize);
         _script = script.ToArray();
         _operandSize = operandPrefixSize;
 
-        Operand = operandPrefixSize switch
+        var prefixOperand = operandPrefixSize switch
         {
-            1 => AsToken<byte>(data),
-            2 => AsToken<ushort>(data),
-            4 => AsToken<uint>(data),
+            1 => AsToken<byte>(operand),
+            2 => AsToken<ushort>(operand),
+            4 => checked((int)AsToken<uint>(operand)),
             _ => 0,
         };
 
-        Data = data[operandPrefixSize..].ToArray();
+        Operand = new Operand(operand, prefixOperand, operandPrefixSize);
         Size = operandSize + OpCodeSize;
         OpCode = opcode;
         Position = start;

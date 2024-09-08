@@ -13,23 +13,40 @@ public class UT_Instruction
         var instruct = new Instruction(script);
 
         Assert.Equal(OpCode.PUSHDATA1, instruct.OpCode);
-        Assert.Equal(3u, instruct.Operand);
+        Assert.Equal([0x01, 0x02, 0x03], instruct.Operand.Value);
+        Assert.Equal(3, instruct.Operand.Prefix);
+        Assert.Equal(4, instruct.Operand.Size);
         Assert.Equal(0, instruct.Position);
         Assert.Equal(5, instruct.Size);
-        Assert.Equal([0x01, 0x02, 0x03], instruct.Data);
     }
 
     [Fact]
     public void Test_DataIsSetCorrectly2()
+    {
+        byte[] script = [(byte)OpCode.PUSHINT8, 10];
+
+        var instruct = new Instruction(script);
+
+        Assert.Equal(OpCode.PUSHINT8, instruct.OpCode);
+        Assert.Equal([10], instruct.Operand.Value);
+        Assert.Equal(0, instruct.Operand.Prefix);
+        Assert.Equal(1, instruct.Operand.Size);
+        Assert.Equal(0, instruct.Position);
+        Assert.Equal(2, instruct.Size);
+    }
+
+    [Fact]
+    public void Test_DataIsSetCorrectly3()
     {
         byte[] script = [(byte)OpCode.NOP];
 
         var instruct = new Instruction(script);
 
         Assert.Equal(OpCode.NOP, instruct.OpCode);
-        Assert.Equal(0u, instruct.Operand);
+        Assert.Equal([], instruct.Operand.Value);
+        Assert.Equal(0, instruct.Operand.Prefix);
+        Assert.Equal(0, instruct.Operand.Size);
         Assert.Equal(0, instruct.Position);
         Assert.Equal(1, instruct.Size);
-        Assert.Equal([], instruct.Data);
     }
 }
