@@ -41,14 +41,12 @@ public partial class ExecuteTable
 
     public virtual void PushT(Engine engine, Instruction instruction, ILogger logger)
     {
-        //engine.Stack.Push(true);
-        throw new NotImplementedException();
+        engine.Stack.Push(true);
     }
 
     public virtual void PushF(Engine engine, Instruction instruction, ILogger logger)
     {
-        //engine.Stack.Push(false);
-        throw new NotImplementedException();
+        engine.Stack.Push(false);
     }
 
     public virtual void PushA(Engine engine, Instruction instruction, ILogger logger)

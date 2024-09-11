@@ -2,6 +2,7 @@
 // The "Neo Events" licenses this file to you under the GPL-3.0 license.
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using NeoEvents.VirtualMachine.Tables;
 using NeoEvents.VirtualMachine.Types;
 using System;
@@ -21,7 +22,7 @@ public class Engine(
     private readonly Stack<PrimitiveType> _stack = [];
     private readonly List<Instruction> _instructions = [.. instructions];
     private readonly ExecuteTable _executeTable = executeTable ?? ExecuteTable.Default;
-    private readonly ILogger? _logger = loggerFactory?.CreateLogger<Engine>();
+    private readonly ILogger _logger = (ILogger?)loggerFactory?.CreateLogger<Engine>() ?? NullLogger.Instance;
 
     protected int _instructionPointer = 0;
 
@@ -42,7 +43,7 @@ public class Engine(
             var instruction = _instructions[_instructionPointer];
             try
             {
-                _logger?.LogTrace("Executing instruction: {OpCode}, IP={IP}", instruction.OpCode, _instructionPointer);
+                _logger.LogTrace("Executing instruction: {OpCode}, IP={IP}", instruction.OpCode, _instructionPointer);
                 _executeTable[instruction.OpCode](this, instruction, _logger);
             }
             catch (Exception ex)
@@ -58,6 +59,6 @@ public class Engine(
         Exception = ex;
         State = VMState.FAULT;
 
-        _logger?.LogTrace(ex, "Failed to execute instruction: {OpCode}", instruction.OpCode);
+        _logger.LogTrace(ex, "Failed to execute instruction: {OpCode}", instruction.OpCode);
     }
 }

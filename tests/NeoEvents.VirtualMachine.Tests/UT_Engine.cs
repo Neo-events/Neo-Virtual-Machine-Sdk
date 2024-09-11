@@ -29,9 +29,9 @@ public class UT_Engine
     public void TestAdd()
     {
         using var sb = ScriptBuilder.Empty()
-            .Push(1)
-            .Push(2)
-            .Emit(OpCode.ADD);
+            .Push(1) // a
+            .Push(2) // b
+            .Emit(OpCode.ADD); // a + b = 1 + 2 = 3
 
         var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
 
@@ -40,5 +40,56 @@ public class UT_Engine
         Assert.Equal(VMState.HALT, state);
         Assert.Single(engine.Stack);
         Assert.Equal(3, engine.Stack.Pop().GetInteger());
+    }
+
+    [Fact]
+    public void TestSubtract()
+    {
+        using var sb = ScriptBuilder.Empty()
+            .Push(1) // a
+            .Push(2) // b
+            .Emit(OpCode.SUB); // a - b = 1 - 2 = -1
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.Stack);
+        Assert.Equal(-1, engine.Stack.Pop().GetInteger());
+    }
+
+    [Fact]
+    public void TestMultiply()
+    {
+        using var sb = ScriptBuilder.Empty()
+            .Push(1) // a
+            .Push(2) // b
+            .Emit(OpCode.MUL); // a * b = 1 * 2 = 2
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.Stack);
+        Assert.Equal(2, engine.Stack.Pop().GetInteger());
+    }
+
+    [Fact]
+    public void TestDivide()
+    {
+        using var sb = ScriptBuilder.Empty()
+            .Push(1) // a
+            .Push(2) // b
+            .Emit(OpCode.DIV); // a / b = 1 / 2 = 0
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.Stack);
+        Assert.Equal(0, engine.Stack.Pop().GetInteger());
     }
 }

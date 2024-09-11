@@ -9,6 +9,7 @@ public interface IPrimitiveType<TClass> : IEquatable<TClass>
     where TClass : class
 {
     PrimitiveItemType Type { get; }
+    bool IsNull { get; }
 
     bool GetBoolean();
     BigInteger GetInteger();

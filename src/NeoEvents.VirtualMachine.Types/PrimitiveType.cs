@@ -14,6 +14,8 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 
     public virtual int Size => Memory.Length;
 
+    public bool IsNull => false;
+
     public virtual bool Equals(PrimitiveType? other) =>
         ReferenceEquals(this, other);
 
@@ -54,4 +56,7 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 
     public static implicit operator PrimitiveType(ulong value) =>
         (Integer)value;
+
+    public static implicit operator PrimitiveType(bool value) =>
+        throw new NotImplementedException();
 }
