@@ -2,6 +2,7 @@
 // The "Neo Events" licenses this file to you under the GPL-3.0 license.
 
 using Microsoft.Extensions.Logging;
+using NeoEvents.VirtualMachine.Types;
 using System;
 using System.Numerics;
 
@@ -76,22 +77,26 @@ public partial class ExecuteTable
 
     public virtual void PushNull(Engine engine, Instruction instruction, ILogger logger)
     {
-        throw new NotImplementedException();
+        engine.Stack.Push(PrimitiveType.Null);
+        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, null);
     }
 
     public virtual void PushData1(Engine engine, Instruction instruction, ILogger logger)
     {
-        throw new NotImplementedException();
+        engine.Stack.Push(instruction.Operand.Value);
+        logger.LogDebug("Position={1}, OpCode={op}, Size={result}", instruction.Position, instruction.OpCode, instruction.Operand.Size);
     }
 
     public virtual void PushData2(Engine engine, Instruction instruction, ILogger logger)
     {
-        throw new NotImplementedException();
+        engine.Stack.Push(instruction.Operand.Value);
+        logger.LogDebug("Position={1}, OpCode={op}, Size={result}", instruction.Position, instruction.OpCode, instruction.Operand.Size);
     }
 
     public virtual void PushData4(Engine engine, Instruction instruction, ILogger logger)
     {
-        throw new NotImplementedException();
+        engine.Stack.Push(instruction.Operand.Value);
+        logger.LogDebug("Position={1}, OpCode={op}, Size={result}", instruction.Position, instruction.OpCode, instruction.Operand.Size);
     }
 
     public virtual void PushM1(Engine engine, Instruction instruction, ILogger logger)

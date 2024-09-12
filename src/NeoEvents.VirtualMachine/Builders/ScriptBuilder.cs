@@ -1,7 +1,7 @@
 // Licensed to the "Neo Events" under one or more agreements.
 // The "Neo Events" licenses this file to you under the GPL-3.0 license.
 
-using NeoEvents.VirtualMachine.Text;
+using NeoEvents.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -71,11 +71,8 @@ public class ScriptBuilder : IDisposable
             return Emit(OpCode.PUSHDATA4, [.. BitConverter.GetBytes(data.Length), .. data]);
     }
 
-    public ScriptBuilder Push(string value)
-    {
-        StrictUTF8Encoding strictUTF8 = new();
-        return Push(strictUTF8.GetBytes(value));
-    }
+    public ScriptBuilder Push(string value) =>
+        Push(new StrictUTF8Encoding().GetBytes(value));
 
     public ScriptBuilder Push(BigInteger value)
     {

@@ -5,6 +5,6 @@ namespace NeoEvents.VirtualMachine.Types.Interfaces;
 
 public interface IType
 {
-    ReadOnlySpan<byte> Memory { get; }
+    ReadOnlyMemory<byte> Memory { get; }
     int Size { get; }
 }

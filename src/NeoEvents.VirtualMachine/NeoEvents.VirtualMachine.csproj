@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NeoEvents.VirtualMachine.Types\NeoEvents.VirtualMachine.Types.csproj" />
+    <ProjectReference Include="..\NeoEvents\NeoEvents.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ public class Integer : PrimitiveType
     public override int Size { get; }
 
     public override PrimitiveItemType Type => PrimitiveItemType.Integer;
-    public override ReadOnlySpan<byte> Memory => _value.IsZero ? [] : _value.ToByteArray();
+    public override ReadOnlyMemory<byte> Memory => _value.IsZero ? [] : _value.ToByteArray();
 
     private readonly BigInteger _value;
 
