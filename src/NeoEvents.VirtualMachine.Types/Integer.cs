@@ -1,10 +1,12 @@
 // Licensed to the "Neo Events" under one or more agreements.
 // The "Neo Events" licenses this file to you under the GPL-3.0 license.
 
+using System.Diagnostics;
 using System.Numerics;
 
 namespace NeoEvents.VirtualMachine.Types;
 
+[DebuggerDisplay("Type={Type}, Value={_value}")]
 public class Integer : PrimitiveType
 {
     public const int MaxSize = 32;

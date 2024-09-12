@@ -23,6 +23,7 @@ internal class TestLogger(
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
     {
         _testOutputHelper.WriteLine($"[{DateTime.Now}] {logLevel}: {_categoryName}[{eventId.Id}] {formatter(state, exception)}");
-        _testOutputHelper.WriteLine($"{exception}");
+        if (exception is not null)
+            _testOutputHelper.WriteLine($"{exception}");
     }
 }

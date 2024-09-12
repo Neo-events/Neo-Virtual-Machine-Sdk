@@ -80,7 +80,7 @@ public class ScriptBuilder : IDisposable
     public ScriptBuilder Push(BigInteger value)
     {
         if (value >= -1 && value <= 16)
-            return Emit(OpCode.PUSH0 + (byte)value);
+            return Emit(OpCode.PUSH0 + (byte)(sbyte)value);
 
         Span<byte> buffer = stackalloc byte[32];
 

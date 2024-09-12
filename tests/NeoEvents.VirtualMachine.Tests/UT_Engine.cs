@@ -92,4 +92,26 @@ public class UT_Engine
         Assert.Single(engine.Stack);
         Assert.Equal(0, engine.Stack.Pop().GetInteger());
     }
+
+    [Fact]
+    public void TestSign()
+    {
+        using var sb = ScriptBuilder.Empty()
+            .Push(-2)
+            .Emit(OpCode.SIGN)
+            .Push(0)
+            .Emit(OpCode.SIGN)
+            .Push(2)
+            .Emit(OpCode.SIGN);
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Equal(3, engine.Stack.Count);
+        Assert.Equal(1, engine.Stack.Pop().GetInteger());
+        Assert.Equal(0, engine.Stack.Pop().GetInteger());
+        Assert.Equal(-1, engine.Stack.Pop().GetInteger());
+    }
 }

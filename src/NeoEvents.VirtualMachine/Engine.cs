@@ -43,7 +43,6 @@ public class Engine(
             var instruction = _instructions[_instructionPointer];
             try
             {
-                _logger.LogTrace("Executing instruction: {OpCode}, IP={IP}", instruction.OpCode, _instructionPointer);
                 _executeTable[instruction.OpCode](this, instruction, _logger);
             }
             catch (Exception ex)
