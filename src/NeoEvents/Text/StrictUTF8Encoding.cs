@@ -3,7 +3,7 @@
 
 using System.Text;
 
-namespace NeoEvents.VirtualMachine.Text;
+namespace NeoEvents.Text;
 
 /// <summary>
 /// No BOM, throw on invalid bytes.
