@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using Xunit.Abstractions;
 
-namespace NeoEvents.VirtualMachine.Tests.TestHelpers.Logging;
+namespace NeoEvents.TDD.Logging;
 
-internal class TestLogger(
+public class TestLogger(
     ITestOutputHelper testOutputHelper,
     string categoryName) : ILogger
 {

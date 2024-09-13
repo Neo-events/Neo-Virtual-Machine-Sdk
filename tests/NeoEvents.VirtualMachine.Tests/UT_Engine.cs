@@ -2,8 +2,8 @@
 // The "Neo Events" licenses this file to you under the GPL-3.0 license.
 
 using Microsoft.Extensions.Logging;
+using NeoEvents.TDD.Logging;
 using NeoEvents.VirtualMachine.Builders;
-using NeoEvents.VirtualMachine.Tests.TestHelpers.Logging;
 using Xunit.Abstractions;
 
 namespace NeoEvents.VirtualMachine.Tests;
@@ -26,7 +26,7 @@ public class UT_Engine
     }
 
     [Fact]
-    public void TestAdd()
+    public void Test_Add()
     {
         using var sb = ScriptBuilder.Empty()
             .Push(1) // a
@@ -43,7 +43,7 @@ public class UT_Engine
     }
 
     [Fact]
-    public void TestSubtract()
+    public void Test_Subtract()
     {
         using var sb = ScriptBuilder.Empty()
             .Push(1) // a
@@ -60,7 +60,7 @@ public class UT_Engine
     }
 
     [Fact]
-    public void TestMultiply()
+    public void Test_Multiply()
     {
         using var sb = ScriptBuilder.Empty()
             .Push(1) // a
@@ -77,7 +77,7 @@ public class UT_Engine
     }
 
     [Fact]
-    public void TestDivide()
+    public void Test_Divide()
     {
         using var sb = ScriptBuilder.Empty()
             .Push(1) // a
@@ -94,7 +94,7 @@ public class UT_Engine
     }
 
     [Fact]
-    public void TestSign()
+    public void Test_Sign()
     {
         using var sb = ScriptBuilder.Empty()
             .Push(-2)

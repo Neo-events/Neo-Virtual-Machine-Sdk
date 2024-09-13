@@ -1,6 +1,7 @@
 // Licensed to the "Neo Events" under one or more agreements.
 // The "Neo Events" licenses this file to you under the GPL-3.0 license.
 
+using System;
 using System.Diagnostics;
 using System.Numerics;
 
@@ -13,7 +14,7 @@ public class Integer : PrimitiveType
 
     public override int Size { get; }
 
-    public override PrimitiveItemType Type => PrimitiveItemType.Integer;
+    public override StackItemType Type => StackItemType.Integer;
     public override ReadOnlyMemory<byte> Memory => _value.IsZero ? [] : _value.ToByteArray();
 
     private readonly BigInteger _value;
@@ -35,19 +36,18 @@ public class Integer : PrimitiveType
     public override bool Equals(PrimitiveType? other)
     {
         if (ReferenceEquals(this, other)) return true;
-        if (other is null) return false;
-        if (other.Type != Type) return false;
+        if (other is null or not Integer) return false;
         return _value == ((Integer)other)._value;
     }
-
-    public override int GetHashCode() =>
-        _value.GetHashCode();
 
     public override bool GetBoolean() =>
         !_value.IsZero;
 
     public override BigInteger GetInteger() =>
         _value;
+
+    public override string? GetString() =>
+        $"{_value}";
 
     public static implicit operator Integer(BigInteger value) =>
         new(value);

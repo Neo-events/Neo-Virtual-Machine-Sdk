@@ -6,10 +6,10 @@ using System;
 using System.Collections.Concurrent;
 using Xunit.Abstractions;
 
-namespace NeoEvents.VirtualMachine.Tests.TestHelpers.Logging;
+namespace NeoEvents.TDD.Logging;
 
-internal sealed class TestLoggerProvider(ITestOutputHelper testOutputHelper)
-    : ILoggerProvider
+public sealed class TestLoggerProvider(
+    ITestOutputHelper testOutputHelper) : ILoggerProvider
 {
     private readonly ITestOutputHelper _testOutputHelper = testOutputHelper;
     private readonly ConcurrentDictionary<string, TestLogger> _loggers = new(StringComparer.OrdinalIgnoreCase);

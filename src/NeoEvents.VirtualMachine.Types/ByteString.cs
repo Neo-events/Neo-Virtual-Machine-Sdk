@@ -2,6 +2,7 @@
 // The "Neo Events" licenses this file to you under the GPL-3.0 license.
 
 using NeoEvents.Text;
+using System;
 using System.Numerics;
 
 namespace NeoEvents.VirtualMachine.Types;
@@ -9,7 +10,7 @@ namespace NeoEvents.VirtualMachine.Types;
 public class ByteString(
     ReadOnlyMemory<byte> memory) : PrimitiveType
 {
-    public override PrimitiveItemType Type => PrimitiveItemType.ByteString;
+    public override StackItemType Type => StackItemType.ByteString;
 
     public override ReadOnlyMemory<byte> Memory { get; } = memory;
 
@@ -29,9 +30,6 @@ public class ByteString(
 
         return false;
     }
-
-    public override int GetHashCode() =>
-        HashCode.Combine(Memory.Span.ToArray());
 
     public override BigInteger GetInteger()
     {

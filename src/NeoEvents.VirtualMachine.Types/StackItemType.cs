@@ -3,7 +3,7 @@
 
 namespace NeoEvents.VirtualMachine.Types;
 
-public enum PrimitiveItemType : byte
+public enum StackItemType : byte
 {
     /// <summary>
     /// Represents any type.
