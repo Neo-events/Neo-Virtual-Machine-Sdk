@@ -4,10 +4,12 @@
 using NeoEvents.Text;
 using NeoEvents.VirtualMachine.Types.Interfaces;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace NeoEvents.VirtualMachine.Types;
 
+[DebuggerDisplay("Type={Type}")]
 public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 {
     public static readonly Null Null = new();
@@ -68,7 +70,7 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
         (Integer)value;
 
     public static implicit operator PrimitiveType(bool value) =>
-        throw new NotImplementedException();
+        (Boolean)value;
 
     public static implicit operator PrimitiveType(byte[] value) =>
         (ByteString)value;

@@ -3,10 +3,12 @@
 
 using NeoEvents.Text;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace NeoEvents.VirtualMachine.Types;
 
+[DebuggerDisplay("Type={Type}, Size={Size}")]
 public class ByteString(
     ReadOnlyMemory<byte> memory) : PrimitiveType
 {
