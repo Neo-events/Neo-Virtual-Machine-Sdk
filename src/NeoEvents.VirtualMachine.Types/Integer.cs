@@ -40,6 +40,9 @@ public class Integer : PrimitiveType
         return _value == ((Integer)other)._value;
     }
 
+    public override int GetHashCode() =>
+        _value.GetHashCode();
+
     public override bool GetBoolean() =>
         !_value.IsZero;
 

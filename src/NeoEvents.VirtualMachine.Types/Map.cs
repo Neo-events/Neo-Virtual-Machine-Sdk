@@ -4,11 +4,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace NeoEvents.VirtualMachine.Types;
 
-public class Map : CompoundType, IReadOnlyDictionary<PrimitiveType, PrimitiveType>, IReadOnlyCollection<KeyValuePair<PrimitiveType, PrimitiveType>>
+[DebuggerDisplay("Type={Type}, Count={Count}")]
+public class Map : CompoundType, IReadOnlyDictionary<PrimitiveType, PrimitiveType>, IReadOnlyCollection<KeyValuePair<PrimitiveType, PrimitiveType>>, IDictionary<PrimitiveType, PrimitiveType>, ICollection<KeyValuePair<PrimitiveType, PrimitiveType>>
 {
     public const int MaxKeySize = 64;
 
@@ -19,7 +22,11 @@ public class Map : CompoundType, IReadOnlyDictionary<PrimitiveType, PrimitiveTyp
     public override StackItemType Type => StackItemType.Map;
     public override ReadOnlyMemory<byte> Memory => GetMemory();
 
-    private readonly Dictionary<PrimitiveType, PrimitiveType> _dictionary = new();
+    ICollection<PrimitiveType> IDictionary<PrimitiveType, PrimitiveType>.Keys => _dictionary.Keys;
+
+    ICollection<PrimitiveType> IDictionary<PrimitiveType, PrimitiveType>.Values => _dictionary.Values;
+
+    private readonly Dictionary<PrimitiveType, PrimitiveType> _dictionary = new(EqualityComparer<PrimitiveType>.Default);
 
     public PrimitiveType this[PrimitiveType key]
     {
@@ -38,6 +45,16 @@ public class Map : CompoundType, IReadOnlyDictionary<PrimitiveType, PrimitiveTyp
             _dictionary[key] = value;
         }
     }
+
+    public override bool Equals(PrimitiveType? other)
+    {
+        if (ReferenceEquals(this, other)) return true;
+        if (other is null or not Map) return false;
+        return _dictionary.SequenceEqual(((Map)other)._dictionary);
+    }
+
+    public override int GetHashCode() =>
+        _dictionary.GetHashCode();
 
     public override void Clear()
     {
@@ -65,6 +82,24 @@ public class Map : CompoundType, IReadOnlyDictionary<PrimitiveType, PrimitiveTyp
 
     IEnumerator IEnumerable.GetEnumerator() =>
         GetEnumerator();
+
+    public void Add(PrimitiveType key, PrimitiveType value) =>
+        _dictionary.Add(key, value);
+
+    public bool Remove(PrimitiveType key) =>
+        _dictionary.Remove(key);
+
+    public void Add(KeyValuePair<PrimitiveType, PrimitiveType> item) =>
+        Add(item.Key, item.Value);
+
+    public bool Contains(KeyValuePair<PrimitiveType, PrimitiveType> item) =>
+        _dictionary.ToArray().Contains(item);
+
+    public void CopyTo(KeyValuePair<PrimitiveType, PrimitiveType>[] array, int arrayIndex) =>
+        _dictionary.ToArray().CopyTo(array, arrayIndex);
+
+    public bool Remove(KeyValuePair<PrimitiveType, PrimitiveType> item) =>
+        _dictionary.Remove(item.Key);
 
     private byte[] GetMemory()
     {

@@ -25,11 +25,9 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
     public override bool Equals(object? obj) =>
         Equals(obj as PrimitiveType);
 
-    public virtual bool Equals(PrimitiveType? other) =>
-        ReferenceEquals(this, other);
+    public abstract bool Equals(PrimitiveType? other);
 
-    public override int GetHashCode() =>
-        HashCode.Combine(Type, Memory);
+    public abstract override int GetHashCode();
 
     public abstract bool GetBoolean();
 

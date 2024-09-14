@@ -23,6 +23,9 @@ public class ByteString(
         return GetSpan().SequenceEqual(other.GetSpan());
     }
 
+    public override int GetHashCode() =>
+        HashCode.Combine(Type, Memory.ToArray());
+
     public override bool GetBoolean()
     {
         if (Size > Integer.MaxSize) throw new InvalidCastException();
