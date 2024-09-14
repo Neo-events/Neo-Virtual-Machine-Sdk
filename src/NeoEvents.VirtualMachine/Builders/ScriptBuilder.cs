@@ -138,16 +138,30 @@ public class ScriptBuilder : IDisposable
         return Emit(OpCode.PACK);
     }
 
-    public ScriptBuilder CreateMap<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> map)
+    public ScriptBuilder CreateStruct<T>(IReadOnlyList<T> array)
+        where T : notnull
     {
-        Emit(OpCode.NEWMAP);
+        if (array.Count == 0)
+            return Emit(OpCode.NEWSTRUCT0);
+        for (var i = array.Count - 1; i >= 0; i--)
+            Push(array[i]);
+        Push(array.Count);
+        return Emit(OpCode.PACKSTRUCT);
+    }
+
+    public ScriptBuilder CreateMap<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> map)
+        where TKey : notnull
+        where TValue : notnull
+    {
+        if (map.Count == 0)
+            return Emit(OpCode.NEWMAP);
+
         foreach (var (key, value) in map)
         {
-            Emit(OpCode.DUP);
-            Push(key);
             Push(value);
-            Emit(OpCode.SETITEM);
+            Push(key);
         }
-        return this;
+        Push(map.Count);
+        return Emit(OpCode.PACKMAP);
     }
 }

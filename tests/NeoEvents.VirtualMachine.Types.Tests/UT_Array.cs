@@ -34,4 +34,30 @@ public class UT_Array
         Assert.Equal(StackItemType.Array, array3.Type);
         Assert.Equal(13, array3.Memory.Length);
     }
+
+    [Fact]
+    public void Test_IEquatable()
+    {
+        Array array1 =
+        [
+            true,
+            1,
+            new byte[] { 1 },
+            PrimitiveType.Null,
+            new Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+        ];
+
+        Array array2 =
+        [
+            true,
+            1,
+            new byte[] { 1 },
+            PrimitiveType.Null,
+            new Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+        ];
+
+        Assert.True(array1 == array2);
+        Assert.True(array1.Equals(array2));
+        Assert.Equal(array1, array2);
+    }
 }

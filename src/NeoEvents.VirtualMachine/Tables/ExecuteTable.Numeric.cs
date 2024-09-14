@@ -17,7 +17,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Sign(Engine engine, Instruction instruction, ILogger logger)
@@ -27,7 +27,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Abs(Engine engine, Instruction instruction, ILogger logger)
@@ -37,7 +37,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Negate(Engine engine, Instruction instruction, ILogger logger)
@@ -47,7 +47,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Inc(Engine engine, Instruction instruction, ILogger logger)
@@ -57,7 +57,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Dec(Engine engine, Instruction instruction, ILogger logger)
@@ -67,7 +67,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Sub(Engine engine, Instruction instruction, ILogger logger)
@@ -78,7 +78,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Mul(Engine engine, Instruction instruction, ILogger logger)
@@ -89,7 +89,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Div(Engine engine, Instruction instruction, ILogger logger)
@@ -100,7 +100,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Mod(Engine engine, Instruction instruction, ILogger logger)
@@ -111,7 +111,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Pow(Engine engine, Instruction instruction, ILogger logger)
@@ -122,7 +122,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Sqrt(Engine engine, Instruction instruction, ILogger logger)
@@ -132,7 +132,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void ModMul(Engine engine, Instruction instruction, ILogger logger)
@@ -144,7 +144,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void ModPow(Engine engine, Instruction instruction, ILogger logger)
@@ -158,7 +158,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Shl(Engine engine, Instruction instruction, ILogger logger)
@@ -171,7 +171,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Shr(Engine engine, Instruction instruction, ILogger logger)
@@ -184,7 +184,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Not(Engine engine, Instruction instruction, ILogger logger)
@@ -194,7 +194,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void BoolAnd(Engine engine, Instruction instruction, ILogger logger)
@@ -205,7 +205,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void BoolOr(Engine engine, Instruction instruction, ILogger logger)
@@ -216,7 +216,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Nz(Engine engine, Instruction instruction, ILogger logger)
@@ -226,7 +226,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void NumEqual(Engine engine, Instruction instruction, ILogger logger)
@@ -237,7 +237,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void NumNotEqual(Engine engine, Instruction instruction, ILogger logger)
@@ -248,7 +248,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Lt(Engine engine, Instruction instruction, ILogger logger)
@@ -264,7 +264,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Le(Engine engine, Instruction instruction, ILogger logger)
@@ -280,7 +280,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Gt(Engine engine, Instruction instruction, ILogger logger)
@@ -296,7 +296,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Ge(Engine engine, Instruction instruction, ILogger logger)
@@ -312,7 +312,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Min(Engine engine, Instruction instruction, ILogger logger)
@@ -323,7 +323,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Max(Engine engine, Instruction instruction, ILogger logger)
@@ -334,7 +334,7 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void Within(Engine engine, Instruction instruction, ILogger logger)
@@ -346,6 +346,6 @@ public partial class ExecuteTable
 
         engine.Stack.Push(result);
 
-        logger.LogDebug("Position={1}, OpCode={op}, Value={result}", instruction.Position, instruction.OpCode, result);
+        logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 }

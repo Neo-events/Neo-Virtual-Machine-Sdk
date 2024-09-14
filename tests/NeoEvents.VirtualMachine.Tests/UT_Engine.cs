@@ -20,6 +20,7 @@ public class UT_Engine
         _loggerFactory = LoggerFactory.Create(builder =>
         {
             builder.ClearProviders();
+            builder.AddDebug();
             builder.AddProvider(new TestLoggerProvider(testOutputHelper));
             builder.SetMinimumLevel(LogLevel.Trace);
         });
@@ -134,5 +135,25 @@ public class UT_Engine
         Assert.IsType<Array>(item);
         Assert.Equal(10, ((Array)item).Count);
         Assert.Equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (Array)item);
+    }
+
+    [Fact]
+    public void Test_PackStruct()
+    {
+        using var sb = ScriptBuilder.Empty()
+            .CreateStruct([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.Stack);
+
+        var item = engine.Stack.Pop();
+
+        Assert.IsType<Struct>(item);
+        Assert.Equal(10, ((Struct)item).Count);
+        Assert.Equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (Struct)item);
     }
 }
