@@ -8,16 +8,17 @@ public class UT_Array
     [Fact]
     public void Test_Constructor()
     {
-        var array1 = new Array(null);
+        var array1 = new Array();
         var array2 = new Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-        Array array3 = new()
-        {
+        Array array3 =
+        [
             true,
             1,
             new byte[] { 1 },
             PrimitiveType.Null,
-        };
+            array2,
+        ];
 
         Assert.Empty(array1);
         Assert.Equal(StackItemType.Array, array1.Type);
@@ -28,6 +29,9 @@ public class UT_Array
         Assert.Equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], array2.Memory.ToArray());
         Assert.Equal(10, array2.Memory.Length);
 
-        Assert.Equal([true, 1, new byte[] { 1 }, PrimitiveType.Null], array3);
+        Assert.Equal([true, 1, new byte[] { 1 }, PrimitiveType.Null, array2], array3);
+        Assert.Equal([1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], array3.Memory.ToArray());
+        Assert.Equal(StackItemType.Array, array3.Type);
+        Assert.Equal(13, array3.Memory.Length);
     }
 }

@@ -4,6 +4,7 @@
 using Microsoft.Extensions.Logging;
 using NeoEvents.TDD.Logging;
 using NeoEvents.VirtualMachine.Builders;
+using NeoEvents.VirtualMachine.Types;
 using Xunit.Abstractions;
 
 namespace NeoEvents.VirtualMachine.Tests;
@@ -113,5 +114,25 @@ public class UT_Engine
         Assert.Equal(1, engine.Stack.Pop().GetInteger());
         Assert.Equal(0, engine.Stack.Pop().GetInteger());
         Assert.Equal(-1, engine.Stack.Pop().GetInteger());
+    }
+
+    [Fact]
+    public void Test_Pack()
+    {
+        using var sb = ScriptBuilder.Empty()
+            .CreateArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.Stack);
+
+        var item = engine.Stack.Pop();
+
+        Assert.IsType<Array>(item);
+        Assert.Equal(10, ((Array)item).Count);
+        Assert.Equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (Array)item);
     }
 }
