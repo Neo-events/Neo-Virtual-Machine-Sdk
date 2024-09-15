@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using NeoEvents.TDD.Logging;
 using NeoEvents.VirtualMachine.Builders;
 using NeoEvents.VirtualMachine.Types;
+using System.Collections.Generic;
 using Xunit.Abstractions;
 
 namespace NeoEvents.VirtualMachine.Tests;
@@ -155,5 +156,29 @@ public class UT_Engine
         Assert.IsType<Struct>(item);
         Assert.Equal(10, ((Struct)item).Count);
         Assert.Equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (Struct)item);
+    }
+
+    [Fact]
+    public void Test_PackMap()
+    {
+        var dic = new Dictionary<bool, byte[]> { [true] = [1, 2, 3] };
+
+        using var sb = ScriptBuilder.Empty()
+            .CreateMap(dic);
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.Stack);
+
+        var item = engine.Stack.Pop();
+
+        Assert.IsType<Map>(item);
+        Assert.Single(((Map)item));
+
+        foreach (var (key, value) in dic)
+            Assert.Equal(value, ((Map)item)[key]);
     }
 }

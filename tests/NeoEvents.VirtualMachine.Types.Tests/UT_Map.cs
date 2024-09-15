@@ -37,6 +37,8 @@ public class UT_Map
             [5] = 6,
             [7] = 8,
             [9] = 10,
+            [true] = false,
+            [new byte[] { 1, 2, 3 }] = new byte[] { 4, 5, 6 },
         };
 
         Map map2 = new()
@@ -46,6 +48,8 @@ public class UT_Map
             [5] = 6,
             [7] = 8,
             [9] = 10,
+            [true] = false,
+            [new byte[] { 1, 2, 3 }] = new byte[] { 4, 5, 6 },
         };
 
 

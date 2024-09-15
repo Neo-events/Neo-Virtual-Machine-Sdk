@@ -9,6 +9,23 @@ namespace NeoEvents.VirtualMachine.Tables;
 
 public partial class ExecuteTable
 {
+    public virtual void PackMap(Engine engine, Instruction instruction, ILogger logger)
+    {
+        var size = checked((int)engine.Stack.Pop().GetInteger());
+        Map map = [];
+
+        for (var i = 0; i < size; i++)
+        {
+            var key = engine.Stack.Pop();
+            var value = engine.Stack.Pop();
+            map.Add(key, value);
+        }
+        engine.Stack.Push(map);
+
+        logger.LogTrace("Position={Position}, OpCode={Op}, Size={Result}", instruction.Position, instruction.OpCode, map.Count);
+        logger.LogDebug("Created: Type=Map, Count={Count}", map.Count);
+    }
+
     public virtual void PackStruct(Engine engine, Instruction instruction, ILogger logger)
     {
         var size = checked((int)engine.Stack.Pop().GetInteger());

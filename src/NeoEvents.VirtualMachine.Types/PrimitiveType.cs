@@ -4,6 +4,8 @@
 using NeoEvents.Text;
 using NeoEvents.VirtualMachine.Types.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Numerics;
 
@@ -78,6 +80,12 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 
     public static implicit operator PrimitiveType(string value) =>
         (ByteString)value;
+
+    public static implicit operator PrimitiveType(Dictionary<PrimitiveType, PrimitiveType> value) =>
+        (Map)value;
+
+    public static implicit operator PrimitiveType(Collection<KeyValuePair<PrimitiveType, PrimitiveType>> value) =>
+        (Map)value;
 
     public static bool operator ==(PrimitiveType left, PrimitiveType right)
     {
