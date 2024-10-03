@@ -30,10 +30,7 @@ public class ByteString(
     {
         if (Size > Integer.MaxSize) throw new InvalidCastException();
 
-        foreach (var b in Memory.Span)
-            if (b != 0) return true;
-
-        return false;
+        return Memory.Span.ContainsAnyExcept((byte)0);
     }
 
     public override BigInteger GetInteger()

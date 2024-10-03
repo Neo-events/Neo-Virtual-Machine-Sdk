@@ -41,8 +41,8 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
-        Assert.Equal(3, engine.Stack.Pop().GetInteger());
+        Assert.Single(engine.EvaluationStack);
+        Assert.Equal(3, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -58,8 +58,8 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
-        Assert.Equal(-1, engine.Stack.Pop().GetInteger());
+        Assert.Single(engine.EvaluationStack);
+        Assert.Equal(-1, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -75,8 +75,8 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
-        Assert.Equal(2, engine.Stack.Pop().GetInteger());
+        Assert.Single(engine.EvaluationStack);
+        Assert.Equal(2, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -92,8 +92,8 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
-        Assert.Equal(0, engine.Stack.Pop().GetInteger());
+        Assert.Single(engine.EvaluationStack);
+        Assert.Equal(0, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -112,10 +112,10 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Equal(3, engine.Stack.Count);
-        Assert.Equal(1, engine.Stack.Pop().GetInteger());
-        Assert.Equal(0, engine.Stack.Pop().GetInteger());
-        Assert.Equal(-1, engine.Stack.Pop().GetInteger());
+        Assert.Equal(3, engine.EvaluationStack.Count);
+        Assert.Equal(1, engine.EvaluationStack.Pop().GetInteger());
+        Assert.Equal(0, engine.EvaluationStack.Pop().GetInteger());
+        Assert.Equal(-1, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -129,9 +129,9 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
+        Assert.Single(engine.EvaluationStack);
 
-        var item = engine.Stack.Pop();
+        var item = engine.EvaluationStack.Pop();
 
         Assert.IsType<Array>(item);
         Assert.Equal(10, ((Array)item).Count);
@@ -149,9 +149,9 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
+        Assert.Single(engine.EvaluationStack);
 
-        var item = engine.Stack.Pop();
+        var item = engine.EvaluationStack.Pop();
 
         Assert.IsType<Struct>(item);
         Assert.Equal(10, ((Struct)item).Count);
@@ -171,12 +171,12 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
+        Assert.Single(engine.EvaluationStack);
 
-        var item = engine.Stack.Pop();
+        var item = engine.EvaluationStack.Pop();
 
         Assert.IsType<Map>(item);
-        Assert.Single(((Map)item));
+        Assert.Single((Map)item);
 
         foreach (var (key, value) in dic)
             Assert.Equal(value, ((Map)item)[key]);

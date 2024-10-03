@@ -14,7 +14,7 @@ public partial class ExecuteTable
     {
         var result = new BigInteger(instruction.Operand.Value);
 
-        engine.Stack.Push(result);
+        engine.EvaluationStack.Push(result);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
@@ -22,7 +22,7 @@ public partial class ExecuteTable
     {
         var result = new BigInteger(instruction.Operand.Value);
 
-        engine.Stack.Push(result);
+        engine.EvaluationStack.Push(result);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
@@ -30,7 +30,7 @@ public partial class ExecuteTable
     {
         var result = new BigInteger(instruction.Operand.Value);
 
-        engine.Stack.Push(result);
+        engine.EvaluationStack.Push(result);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
@@ -38,7 +38,7 @@ public partial class ExecuteTable
     {
         var result = new BigInteger(instruction.Operand.Value);
 
-        engine.Stack.Push(result);
+        engine.EvaluationStack.Push(result);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
@@ -46,7 +46,7 @@ public partial class ExecuteTable
     {
         var result = new BigInteger(instruction.Operand.Value);
 
-        engine.Stack.Push(result);
+        engine.EvaluationStack.Push(result);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
@@ -54,19 +54,19 @@ public partial class ExecuteTable
     {
         var result = new BigInteger(instruction.Operand.Value);
 
-        engine.Stack.Push(result);
+        engine.EvaluationStack.Push(result);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, result);
     }
 
     public virtual void PushT(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(true);
+        engine.EvaluationStack.Push(true);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, true);
     }
 
     public virtual void PushF(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(false);
+        engine.EvaluationStack.Push(false);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, false);
     }
 
@@ -77,133 +77,133 @@ public partial class ExecuteTable
 
     public virtual void PushNull(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(PrimitiveType.Null);
+        engine.EvaluationStack.Push(PrimitiveType.Null);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, null);
     }
 
     public virtual void PushData1(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(instruction.Operand.Value);
+        engine.EvaluationStack.Push(instruction.Operand.Value);
         logger.LogTrace("Position={Position}, OpCode={Op}, Size={Result}", instruction.Position, instruction.OpCode, instruction.Operand.Size);
     }
 
     public virtual void PushData2(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(instruction.Operand.Value);
+        engine.EvaluationStack.Push(instruction.Operand.Value);
         logger.LogTrace("Position={Position}, OpCode={Op}, Size={Result}", instruction.Position, instruction.OpCode, instruction.Operand.Size);
     }
 
     public virtual void PushData4(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(instruction.Operand.Value);
+        engine.EvaluationStack.Push(instruction.Operand.Value);
         logger.LogTrace("Position={Position}, OpCode={Op}, Size={Result}", instruction.Position, instruction.OpCode, instruction.Operand.Size);
     }
 
     public virtual void PushM1(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(-1);
+        engine.EvaluationStack.Push(-1);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, -1);
     }
 
     public virtual void Push0(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(0);
+        engine.EvaluationStack.Push(0);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 0);
     }
 
     public virtual void Push1(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(1);
+        engine.EvaluationStack.Push(1);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 1);
     }
 
     public virtual void Push2(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(2);
+        engine.EvaluationStack.Push(2);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 2);
     }
 
     public virtual void Push3(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(3);
+        engine.EvaluationStack.Push(3);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 3);
     }
 
     public virtual void Push4(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(4);
+        engine.EvaluationStack.Push(4);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 4);
     }
 
     public virtual void Push5(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(5);
+        engine.EvaluationStack.Push(5);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 5);
     }
 
     public virtual void Push6(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(6);
+        engine.EvaluationStack.Push(6);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 6);
     }
 
     public virtual void Push7(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(7);
+        engine.EvaluationStack.Push(7);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 7);
     }
 
     public virtual void Push8(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(8);
+        engine.EvaluationStack.Push(8);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 8);
     }
 
     public virtual void Push9(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(9);
+        engine.EvaluationStack.Push(9);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 9);
     }
 
     public virtual void Push10(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(10);
+        engine.EvaluationStack.Push(10);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 10);
     }
 
     public virtual void Push11(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(11);
+        engine.EvaluationStack.Push(11);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 11);
     }
 
     public virtual void Push12(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(12);
+        engine.EvaluationStack.Push(12);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 12);
     }
 
     public virtual void Push13(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(13);
+        engine.EvaluationStack.Push(13);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 13);
     }
 
     public virtual void Push14(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(14);
+        engine.EvaluationStack.Push(14);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 14);
     }
 
     public virtual void Push15(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(15);
+        engine.EvaluationStack.Push(15);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 15);
     }
 
     public virtual void Push16(Engine engine, Instruction instruction, ILogger logger)
     {
-        engine.Stack.Push(16);
+        engine.EvaluationStack.Push(16);
         logger.LogTrace("Position={Position}, OpCode={Op}, Value={Result}", instruction.Position, instruction.OpCode, 16);
     }
 }

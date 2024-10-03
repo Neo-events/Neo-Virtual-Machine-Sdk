@@ -11,16 +11,16 @@ public partial class ExecuteTable
 {
     public virtual void PackMap(Engine engine, Instruction instruction, ILogger logger)
     {
-        var size = checked((int)engine.Stack.Pop().GetInteger());
+        var size = checked((int)engine.EvaluationStack.Pop().GetInteger());
         Map map = [];
 
         for (var i = 0; i < size; i++)
         {
-            var key = engine.Stack.Pop();
-            var value = engine.Stack.Pop();
+            var key = engine.EvaluationStack.Pop();
+            var value = engine.EvaluationStack.Pop();
             map.Add(key, value);
         }
-        engine.Stack.Push(map);
+        engine.EvaluationStack.Push(map);
 
         logger.LogTrace("Position={Position}, OpCode={Op}, Size={Result}", instruction.Position, instruction.OpCode, map.Count);
         logger.LogDebug("Created: Type=Map, Count={Count}", map.Count);
@@ -28,12 +28,12 @@ public partial class ExecuteTable
 
     public virtual void PackStruct(Engine engine, Instruction instruction, ILogger logger)
     {
-        var size = checked((int)engine.Stack.Pop().GetInteger());
+        var size = checked((int)engine.EvaluationStack.Pop().GetInteger());
         Struct structure = [];
 
         for (var i = 0; i < size; i++)
-            structure.Add(engine.Stack.Pop());
-        engine.Stack.Push(structure);
+            structure.Add(engine.EvaluationStack.Pop());
+        engine.EvaluationStack.Push(structure);
 
         logger.LogTrace("Position={Position}, OpCode={Op}, Size={Result}", instruction.Position, instruction.OpCode, structure.Count);
         logger.LogDebug("Created: Type=Struct, Count={Count}, Value=[{Item}]", structure.Count, string.Join(", ", structure.Select(s => s.GetString())));
@@ -41,12 +41,12 @@ public partial class ExecuteTable
 
     public virtual void Pack(Engine engine, Instruction instruction, ILogger logger)
     {
-        var size = checked((int)engine.Stack.Pop().GetInteger());
+        var size = checked((int)engine.EvaluationStack.Pop().GetInteger());
         Array array = [];
 
         for (var i = 0; i < size; i++)
-            array.Add(engine.Stack.Pop());
-        engine.Stack.Push(array);
+            array.Add(engine.EvaluationStack.Pop());
+        engine.EvaluationStack.Push(array);
 
         logger.LogTrace("Position={Position}, OpCode={Op}, Size={Result}", instruction.Position, instruction.OpCode, array.Count);
         logger.LogDebug("Created: Type=Array, Count={Count}, Value=[{Item}]", array.Count, string.Join(", ", array.Select(s => s.GetString())));

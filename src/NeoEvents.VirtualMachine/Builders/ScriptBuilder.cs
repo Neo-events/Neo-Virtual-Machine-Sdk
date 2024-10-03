@@ -5,6 +5,7 @@ using NeoEvents.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 
 namespace NeoEvents.VirtualMachine.Builders;
@@ -156,7 +157,7 @@ public class ScriptBuilder : IDisposable
         if (map.Count == 0)
             return Emit(OpCode.NEWMAP);
 
-        foreach (var (key, value) in map)
+        foreach (var (key, value) in map.Reverse())
         {
             Push(value);
             Push(key);
