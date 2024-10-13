@@ -59,5 +59,6 @@ public class UT_Array
         Assert.True(array1 == array2);
         Assert.True(array1.Equals(array2));
         Assert.Equal(array1, array2);
+        Assert.Equal(array1.GetHashCode(), array2.GetHashCode());
     }
 }

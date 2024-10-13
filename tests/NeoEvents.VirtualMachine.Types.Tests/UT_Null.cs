@@ -16,6 +16,7 @@ public class UT_Null
         Assert.True(null1 == null2);
         Assert.True(null1.Equals(null2));
         Assert.Equal(null1, null2);
+        Assert.Equal(null1.GetHashCode(), null2.GetHashCode());
     }
 
     [Fact]

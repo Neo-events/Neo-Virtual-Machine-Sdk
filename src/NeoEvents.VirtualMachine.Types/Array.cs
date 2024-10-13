@@ -44,8 +44,13 @@ public class Array(
         return ArrayItems.SequenceEqual(array.ArrayItems);
     }
 
-    public override int GetHashCode() =>
-        HashCode.Combine(Type, ArrayItems);
+    public override int GetHashCode()
+    {
+        var h = new HashCode();
+        h.Add(Type);
+        h.AddBytes(Memory.Span);
+        return h.ToHashCode();
+    }
 
     public override void Clear()
     {

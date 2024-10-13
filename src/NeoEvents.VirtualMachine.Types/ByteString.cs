@@ -23,8 +23,13 @@ public class ByteString(
         return GetSpan().SequenceEqual(other.GetSpan());
     }
 
-    public override int GetHashCode() =>
-        HashCode.Combine(Type, Memory.ToArray());
+    public override int GetHashCode()
+    {
+        var h = new HashCode();
+        h.Add(Type);
+        h.AddBytes(Memory.Span);
+        return h.ToHashCode();
+    }
 
     public override bool GetBoolean()
     {

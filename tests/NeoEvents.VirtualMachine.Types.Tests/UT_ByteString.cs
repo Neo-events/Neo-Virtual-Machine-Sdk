@@ -24,6 +24,7 @@ public class UT_ByteString
         Assert.True(bs1 == bs2);
         Assert.True(bs1.Equals(bs2));
         Assert.Equal(bs1, bs2);
+        Assert.Equal(bs1.GetHashCode(), bs2.GetHashCode());
     }
 
     [Fact]

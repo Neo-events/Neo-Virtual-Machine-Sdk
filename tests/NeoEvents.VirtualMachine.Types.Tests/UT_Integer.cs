@@ -19,6 +19,7 @@ public class UT_Integer
         Assert.True(integer1.Equals(integer2));
         Assert.Equal(integer1, integer2);
         Assert.Equal(integer1.GetInteger(), integer2.GetInteger());
+        Assert.True(integer1.GetHashCode() == integer2.GetHashCode());
 
         Assert.False(integer1 == integer3);
         Assert.False(integer1.Equals(integer3));

@@ -53,8 +53,13 @@ public class Map : CompoundType, IReadOnlyDictionary<PrimitiveType, PrimitiveTyp
         return _dictionary.SequenceEqual(((Map)other)._dictionary);
     }
 
-    public override int GetHashCode() =>
-        _dictionary.GetHashCode();
+    public override int GetHashCode()
+    {
+        var h = new HashCode();
+        h.Add(Type);
+        h.AddBytes(Memory.Span);
+        return h.ToHashCode();
+    }
 
     public override void Clear()
     {

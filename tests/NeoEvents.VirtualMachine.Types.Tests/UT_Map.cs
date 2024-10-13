@@ -56,5 +56,6 @@ public class UT_Map
         Assert.True(map1 == map2);
         Assert.True(map1.Equals(map2));
         Assert.Equal(map1, map2);
+        Assert.Equal(map1.GetHashCode(), map2.GetHashCode());
     }
 }
