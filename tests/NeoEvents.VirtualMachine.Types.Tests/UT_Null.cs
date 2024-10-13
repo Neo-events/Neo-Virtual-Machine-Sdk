@@ -10,12 +10,13 @@ public class UT_Null
     [Fact]
     public void Test_IEquatable()
     {
-        var integer1 = new Null();
-        var integer2 = PrimitiveType.Null;
+        var null1 = new Null();
+        var null2 = PrimitiveType.Null;
 
-        Assert.True(integer1 == integer2);
-        Assert.True(integer1.Equals(integer2));
-        Assert.Equal(integer1, integer2);
+        Assert.True(null1 == null2);
+        Assert.True(null1.Equals(null2));
+        Assert.Equal(null1, null2);
+        Assert.Equal(null1.GetHashCode(), null2.GetHashCode());
     }
 
     [Fact]

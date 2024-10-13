@@ -20,7 +20,7 @@ public class Integer : PrimitiveType
     private readonly BigInteger _value;
 
     public Integer(
-        BigInteger value)
+        BigInteger value) : base()
     {
         if (value.IsZero)
             Size = 0;
@@ -39,6 +39,9 @@ public class Integer : PrimitiveType
         if (other is null or not Integer) return false;
         return _value == ((Integer)other)._value;
     }
+
+    public override int GetHashCode() =>
+        _value.GetHashCode();
 
     public override bool GetBoolean() =>
         !_value.IsZero;

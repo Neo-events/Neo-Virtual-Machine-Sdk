@@ -3,12 +3,14 @@
 
 using NeoEvents.Text;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace NeoEvents.VirtualMachine.Types;
 
+[DebuggerDisplay("Type={Type}, Size={Size}")]
 public class ByteString(
-    ReadOnlyMemory<byte> memory) : PrimitiveType
+    ReadOnlyMemory<byte> memory) : PrimitiveType()
 {
     public override StackItemType Type => StackItemType.ByteString;
 
@@ -21,14 +23,19 @@ public class ByteString(
         return GetSpan().SequenceEqual(other.GetSpan());
     }
 
+    public override int GetHashCode()
+    {
+        var h = new HashCode();
+        h.Add(Type);
+        h.AddBytes(Memory.Span);
+        return h.ToHashCode();
+    }
+
     public override bool GetBoolean()
     {
         if (Size > Integer.MaxSize) throw new InvalidCastException();
 
-        foreach (var b in Memory.Span)
-            if (b != 0) return true;
-
-        return false;
+        return Memory.Span.ContainsAnyExcept((byte)0);
     }
 
     public override BigInteger GetInteger()

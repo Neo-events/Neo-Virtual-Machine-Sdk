@@ -4,6 +4,8 @@
 using Microsoft.Extensions.Logging;
 using NeoEvents.TDD.Logging;
 using NeoEvents.VirtualMachine.Builders;
+using NeoEvents.VirtualMachine.Types;
+using System.Collections.Generic;
 using Xunit.Abstractions;
 
 namespace NeoEvents.VirtualMachine.Tests;
@@ -19,6 +21,7 @@ public class UT_Engine
         _loggerFactory = LoggerFactory.Create(builder =>
         {
             builder.ClearProviders();
+            builder.AddDebug();
             builder.AddProvider(new TestLoggerProvider(testOutputHelper));
             builder.SetMinimumLevel(LogLevel.Trace);
         });
@@ -38,8 +41,8 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
-        Assert.Equal(3, engine.Stack.Pop().GetInteger());
+        Assert.Single(engine.EvaluationStack);
+        Assert.Equal(3, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -55,8 +58,8 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
-        Assert.Equal(-1, engine.Stack.Pop().GetInteger());
+        Assert.Single(engine.EvaluationStack);
+        Assert.Equal(-1, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -72,8 +75,8 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
-        Assert.Equal(2, engine.Stack.Pop().GetInteger());
+        Assert.Single(engine.EvaluationStack);
+        Assert.Equal(2, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -89,8 +92,8 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Single(engine.Stack);
-        Assert.Equal(0, engine.Stack.Pop().GetInteger());
+        Assert.Single(engine.EvaluationStack);
+        Assert.Equal(0, engine.EvaluationStack.Pop().GetInteger());
     }
 
     [Fact]
@@ -109,9 +112,73 @@ public class UT_Engine
         var state = engine.Run();
 
         Assert.Equal(VMState.HALT, state);
-        Assert.Equal(3, engine.Stack.Count);
-        Assert.Equal(1, engine.Stack.Pop().GetInteger());
-        Assert.Equal(0, engine.Stack.Pop().GetInteger());
-        Assert.Equal(-1, engine.Stack.Pop().GetInteger());
+        Assert.Equal(3, engine.EvaluationStack.Count);
+        Assert.Equal(1, engine.EvaluationStack.Pop().GetInteger());
+        Assert.Equal(0, engine.EvaluationStack.Pop().GetInteger());
+        Assert.Equal(-1, engine.EvaluationStack.Pop().GetInteger());
+    }
+
+    [Fact]
+    public void Test_Pack()
+    {
+        using var sb = ScriptBuilder.Empty()
+            .CreateArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.EvaluationStack);
+
+        var item = engine.EvaluationStack.Pop();
+
+        Assert.IsType<Array>(item);
+        Assert.Equal(10, ((Array)item).Count);
+        Assert.Equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (Array)item);
+    }
+
+    [Fact]
+    public void Test_PackStruct()
+    {
+        using var sb = ScriptBuilder.Empty()
+            .CreateStruct([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.EvaluationStack);
+
+        var item = engine.EvaluationStack.Pop();
+
+        Assert.IsType<Struct>(item);
+        Assert.Equal(10, ((Struct)item).Count);
+        Assert.Equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (Struct)item);
+    }
+
+    [Fact]
+    public void Test_PackMap()
+    {
+        var dic = new Dictionary<bool, byte[]> { [true] = [1, 2, 3] };
+
+        using var sb = ScriptBuilder.Empty()
+            .CreateMap(dic);
+
+        var engine = new Engine(new Instruction(sb.Build()), _loggerFactory);
+
+        var state = engine.Run();
+
+        Assert.Equal(VMState.HALT, state);
+        Assert.Single(engine.EvaluationStack);
+
+        var item = engine.EvaluationStack.Pop();
+
+        Assert.IsType<Map>(item);
+        Assert.Single((Map)item);
+
+        foreach (var (key, value) in dic)
+            Assert.Equal(value, ((Map)item)[key]);
     }
 }

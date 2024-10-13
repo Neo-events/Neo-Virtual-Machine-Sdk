@@ -17,9 +17,9 @@ public class Engine(
 {
     public Exception? Exception { get; protected set; }
     public VMState State { get; protected set; } = VMState.NONE;
-    public Stack<PrimitiveType> Stack => _stack;
+    public Stack<PrimitiveType> EvaluationStack => _evalStack;
 
-    private readonly Stack<PrimitiveType> _stack = [];
+    private readonly Stack<PrimitiveType> _evalStack = [];
     private readonly List<Instruction> _instructions = [.. instructions];
     private readonly ExecuteTable _executeTable = executeTable ?? ExecuteTable.Default;
     private readonly ILogger _logger = (ILogger?)loggerFactory?.CreateLogger<Engine>() ?? NullLogger.Instance;
@@ -29,12 +29,12 @@ public class Engine(
     public VMState Run()
     {
         while (State != VMState.HALT && State != VMState.FAULT)
-            Execute();
+            StepOne();
 
         return State;
     }
 
-    private void Execute()
+    private void StepOne()
     {
         if (_instructionPointer == _instructions.Count)
             State = VMState.HALT;

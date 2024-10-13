@@ -4,13 +4,24 @@
 using NeoEvents.Text;
 using NeoEvents.VirtualMachine.Types.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace NeoEvents.VirtualMachine.Types;
 
+[DebuggerDisplay("Type={Type}")]
 public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 {
+    private int _referenceCount;
+
     public static readonly Null Null = new();
+
+    protected PrimitiveType()
+    {
+        _referenceCount = 1;
+    }
 
     public abstract StackItemType Type { get; }
 
@@ -23,11 +34,9 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
     public override bool Equals(object? obj) =>
         Equals(obj as PrimitiveType);
 
-    public virtual bool Equals(PrimitiveType? other) =>
-        ReferenceEquals(this, other);
+    public abstract bool Equals(PrimitiveType? other);
 
-    public override int GetHashCode() =>
-        HashCode.Combine(Type, Memory);
+    public abstract override int GetHashCode();
 
     public abstract bool GetBoolean();
 
@@ -39,6 +48,12 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 
     public virtual string? GetString() =>
         new StrictUTF8Encoding().GetString(GetSpan());
+
+    public virtual void AddStackReference() => _referenceCount++;
+
+    public virtual void RemoveStackReference() =>
+        _referenceCount--;
+
 
     public static implicit operator PrimitiveType(BigInteger value) =>
         (Integer)value;
@@ -68,7 +83,7 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
         (Integer)value;
 
     public static implicit operator PrimitiveType(bool value) =>
-        throw new NotImplementedException();
+        (Boolean)value;
 
     public static implicit operator PrimitiveType(byte[] value) =>
         (ByteString)value;
@@ -78,6 +93,12 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 
     public static implicit operator PrimitiveType(string value) =>
         (ByteString)value;
+
+    public static implicit operator PrimitiveType(Dictionary<PrimitiveType, PrimitiveType> value) =>
+        (Map)value;
+
+    public static implicit operator PrimitiveType(Collection<KeyValuePair<PrimitiveType, PrimitiveType>> value) =>
+        (Map)value;
 
     public static bool operator ==(PrimitiveType left, PrimitiveType right)
     {
