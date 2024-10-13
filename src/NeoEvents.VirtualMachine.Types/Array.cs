@@ -12,7 +12,7 @@ namespace NeoEvents.VirtualMachine.Types;
 [DebuggerDisplay("Type={Type}, Count={Count}")]
 public class Array(
     IEnumerable<PrimitiveType>? items = default)
-    : CompoundType, ICollection<PrimitiveType>, IReadOnlyCollection<PrimitiveType>, IReadOnlyList<PrimitiveType>
+    : CompoundType(), ICollection<PrimitiveType>, IReadOnlyCollection<PrimitiveType>, IReadOnlyList<PrimitiveType>
 {
     public override int Count => ArrayItems.Count;
     public override ICollection<PrimitiveType> Items => ArrayItems;

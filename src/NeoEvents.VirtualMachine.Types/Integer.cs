@@ -20,7 +20,7 @@ public class Integer : PrimitiveType
     private readonly BigInteger _value;
 
     public Integer(
-        BigInteger value)
+        BigInteger value) : base()
     {
         if (value.IsZero)
             Size = 0;

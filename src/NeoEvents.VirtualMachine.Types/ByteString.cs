@@ -10,7 +10,7 @@ namespace NeoEvents.VirtualMachine.Types;
 
 [DebuggerDisplay("Type={Type}, Size={Size}")]
 public class ByteString(
-    ReadOnlyMemory<byte> memory) : PrimitiveType
+    ReadOnlyMemory<byte> memory) : PrimitiveType()
 {
     public override StackItemType Type => StackItemType.ByteString;
 

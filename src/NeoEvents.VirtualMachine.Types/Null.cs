@@ -11,7 +11,7 @@ public class Null : PrimitiveType
 
     public override ReadOnlyMemory<byte> Memory => Memory<byte>.Empty;
 
-    internal Null() { }
+    internal Null() : base() { }
 
     public override bool Equals(PrimitiveType? other)
     {

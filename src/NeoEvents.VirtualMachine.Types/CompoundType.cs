@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace NeoEvents.VirtualMachine.Types;
 
-public abstract class CompoundType : PrimitiveType
+public abstract class CompoundType() : PrimitiveType()
 {
     public abstract int Count { get; }
     public abstract ICollection<PrimitiveType> Items { get; }

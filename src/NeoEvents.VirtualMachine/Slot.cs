@@ -7,14 +7,20 @@ using System.Collections.Generic;
 
 namespace NeoEvents.VirtualMachine;
 
-public class Slot : IReadOnlyList<PrimitiveType>, IReadOnlyCollection<PrimitiveType>
+public class Slot : IReadOnlyList<PrimitiveType>, IReadOnlyCollection<PrimitiveType>, IEnumerable<PrimitiveType>
 {
     private readonly PrimitiveType[] _values;
 
     public PrimitiveType this[int index]
     {
         get => _values[index];
-        internal set => _values[index] = value;
+        internal set
+        {
+            ref var oldValue = ref _values[index];
+            oldValue.RemoveStackReference();
+            oldValue = value;
+            oldValue.AddStackReference();
+        }
     }
 
     public int Count => _values.Length;
@@ -28,6 +34,12 @@ public class Slot : IReadOnlyList<PrimitiveType>, IReadOnlyCollection<PrimitiveT
     {
         _values = new PrimitiveType[count];
         System.Array.Fill(_values, PrimitiveType.Null);
+    }
+
+    public void ClearReferences()
+    {
+        foreach (var item in _values)
+            item.RemoveStackReference();
     }
 
     public IEnumerator<PrimitiveType> GetEnumerator()

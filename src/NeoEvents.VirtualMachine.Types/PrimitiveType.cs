@@ -14,7 +14,14 @@ namespace NeoEvents.VirtualMachine.Types;
 [DebuggerDisplay("Type={Type}")]
 public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 {
+    private int _referenceCount;
+
     public static readonly Null Null = new();
+
+    protected PrimitiveType()
+    {
+        _referenceCount = 1;
+    }
 
     public abstract StackItemType Type { get; }
 
@@ -41,6 +48,12 @@ public abstract class PrimitiveType : IPrimitiveType<PrimitiveType>, IType
 
     public virtual string? GetString() =>
         new StrictUTF8Encoding().GetString(GetSpan());
+
+    public virtual void AddStackReference() => _referenceCount++;
+
+    public virtual void RemoveStackReference() =>
+        _referenceCount--;
+
 
     public static implicit operator PrimitiveType(BigInteger value) =>
         (Integer)value;

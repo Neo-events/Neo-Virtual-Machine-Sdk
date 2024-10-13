@@ -21,6 +21,11 @@ public class Struct(IEnumerable<PrimitiveType>? items = default) : Array(items)
         return ArrayItems.SequenceEqual(str.ArrayItems);
     }
 
-    public override int GetHashCode() =>
-        HashCode.Combine(Type, ArrayItems);
+    public override int GetHashCode()
+    {
+        var h = new HashCode();
+        h.Add(Type);
+        h.AddBytes(Memory.Span);
+        return h.ToHashCode();
+    }
 }

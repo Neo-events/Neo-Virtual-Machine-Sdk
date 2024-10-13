@@ -8,7 +8,7 @@ using System.Numerics;
 namespace NeoEvents.VirtualMachine.Types;
 
 [DebuggerDisplay("Type={Type}, Value={_value}")]
-public class Boolean(bool value) : PrimitiveType
+public class Boolean(bool value) : PrimitiveType()
 {
     public static readonly Boolean True = new(true);
     public static readonly Boolean False = new(false);

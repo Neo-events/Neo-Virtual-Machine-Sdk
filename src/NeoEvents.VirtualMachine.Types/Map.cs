@@ -11,7 +11,7 @@ using System.Linq;
 namespace NeoEvents.VirtualMachine.Types;
 
 [DebuggerDisplay("Type={Type}, Count={Count}")]
-public class Map : CompoundType, IReadOnlyDictionary<PrimitiveType, PrimitiveType>, IReadOnlyCollection<KeyValuePair<PrimitiveType, PrimitiveType>>, IDictionary<PrimitiveType, PrimitiveType>, ICollection<KeyValuePair<PrimitiveType, PrimitiveType>>
+public class Map() : CompoundType(), IReadOnlyDictionary<PrimitiveType, PrimitiveType>, IReadOnlyCollection<KeyValuePair<PrimitiveType, PrimitiveType>>, IDictionary<PrimitiveType, PrimitiveType>, ICollection<KeyValuePair<PrimitiveType, PrimitiveType>>
 {
     public const int MaxKeySize = 64;
 
